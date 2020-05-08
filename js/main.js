@@ -30,7 +30,6 @@ let login = localStorage.getItem('Delivery');
 let savedCart = JSON.parse(localStorage.getItem('Cart'));
 
 const cart = [].concat(savedCart);
-console.log(cart);
 
 const getData = async (url) => {
   
