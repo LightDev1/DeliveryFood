@@ -27,7 +27,10 @@ const cartButton = document.querySelector("#cart-button"),
 
 let login = localStorage.getItem('Delivery');
 
-const cart = [];
+let savedCart = JSON.parse(localStorage.getItem('Cart'));
+
+const cart = [].concat(savedCart);
+console.log(cart);
 
 const getData = async (url) => {
   
@@ -191,8 +194,6 @@ const openGoods = (event) => {
 
   if (login) {
       if (restaurant) {
-
-
           const [name, price, stars, kitchen] = restaurant.info;
 
           cardsMenu.textContent = '';
@@ -242,15 +243,13 @@ const addToCart = (event) =>  {
         }
     }
 
-    localStorage.setItem('Cart', JSON.stringify(cart));
+   
 };
 
 const renderCart = () => {
     modalBody.textContent = '';
-    let savedCart = JSON.parse(localStorage.getItem('Cart'));
-    console.log(savedCart);
 
-    savedCart.forEach(({ id, title, cost, count }) => {
+    cart.forEach(({ id, title, cost, count }) => {
         const itemCart = `
           <div class="food-row">
             <span class="food-name">${title}</span>
@@ -271,14 +270,15 @@ const renderCart = () => {
     }, 0);
 
     modalPrice.textContent = totalPrice + '₽';
+
+    localStorage.setItem('Cart', JSON.stringify(cart));
 };
 
 const changeCount = (event) => {
-    let savedCart = JSON.parse(localStorage.getItem('Cart'));
     const target = event.target;
 
     if (target.classList.contains('counter-button')) {
-        const food = savedCart.find((item) => {
+        const food = cart.find((item) => {
         return item.id === target.dataset.id;
     }); 
 
