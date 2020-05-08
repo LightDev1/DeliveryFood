@@ -27,7 +27,7 @@ const cartButton = document.querySelector("#cart-button"),
 
 let login = localStorage.getItem('Delivery');
 
-let savedCart = JSON.parse(localStorage.getItem('Cart'));
+let savedCart = JSON.parse(localStorage.getItem('Cart')) || [];
 
 const cart = [].concat(savedCart);
 
